@@ -267,36 +267,36 @@
 // console.log ( aungaung.name + aungaung.lastName);
 // console.log ( hlahla.name + hlahla.lastName);
 
-var year = [ 1990, 1987, 1954, 1997, 2000];
-function arrCal( arr, fn ){
-	var arrRes = [];
-	for( var i = 0 ; i < arr.length; i++ ){
-		arrRes.push(fn(arr[i]));
-	}
-	return arrRes;
-}
-function calAge(el){
-	return 2020 - el ;
-}
+// var year = [ 1990, 1987, 1954, 1997, 2000];
+// function arrCal( arr, fn ){
+// 	var arrRes = [];
+// 	for( var i = 0 ; i < arr.length; i++ ){
+// 		arrRes.push(fn(arr[i]));
+// 	}
+// 	return arrRes;
+// }
+// function calAge(el){
+// 	return 2020 - el ;
+// }
 
-var ages = arrCal(year, calAge);
-console.log( ages );
+// var ages = arrCal(year, calAge);
+// console.log( ages );
 
 
 
-function isFullAge(el){
-	return 18 <= el;
-}
-var fullAge = arrCal ( ages, isFullAge);
-console.log(fullAge);
+// function isFullAge(el){
+// 	return 18 <= el;
+// }
+// var fullAge = arrCal ( ages, isFullAge);
+// console.log(fullAge);
 
-function maxHeartRate(el){
-	if(el >= 18 && el <= 81){
-			return 206.9 - ( 0.67 * el);
-		}else{
-			return -1;
-		}
+// function maxHeartRate(el){
+// 	if(el >= 18 && el <= 81){
+// 			return 206.9 - ( 0.67 * el);
+// 		}else{
+// 			return -1;
+// 		}
 
-}
-var heartRate = arrCal(ages, maxHeartRate);
-console.log(heartRate);
+// }
+// var heartRate = arrCal(ages, maxHeartRate);
+// console.log(heartRate);
