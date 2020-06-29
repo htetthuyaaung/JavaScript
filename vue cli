@@ -1,0 +1,6 @@
+$ sudo npm uninstall -g vue
+$ sudo npm uninstall -g vue-cli
+$ sudo npm uninstall -g @vue/cli
+$ sudo npm cache clean --force
+$ sudo npm install -g vue
+$ sudo npm install -g @vue/cli
