@@ -5,7 +5,21 @@ var budgetController = (function(){
 		this.id = id;
 		this.description = description;
 		this.value = value;
+		this.percentage = -1;
 	}
+
+	Expense.prototype.calcPercentage = function(totalIncome){
+		if (totalIncome > 0) {
+			this.percentage = Math.round((this.value / totalIncome) * 100) ;
+		}else{
+			this.percentage = -1 ;
+		}
+	}
+
+	Expense.prototype.getPercentage = function(){
+		return this.percentage;
+	}
+
 	var Income = function(id,description,value){
 		this.id = id;
 		this.description = description;
@@ -107,6 +121,20 @@ var budgetController = (function(){
                 totalExp: data.totals.exp,
                 percentage: data.percentage
             };
+        },
+
+        claculatePercentage : function(){
+
+        	data.allItems.exp.forEach(function(cur){
+        		cur.calcPercentage(data.totals.inc);
+        	})
+        },
+
+        getPercentage : function(){
+        	var allPerc = data.allItems.exp.map(function(cur){
+        		return cur.getPercentage();
+        	})
+        	return allPerc;
         },
         
         testing: function() {
@@ -252,6 +280,14 @@ var controller = (function(budgetCtrl,UICtrl){
         UICtrl.displayBudget(budget);
     };
 
+    var updatePercentages = function(){
+    	// 1.Calculate percentage
+    	budgetCtrl.claculatePercentage();
+    	// 2.Read percentage form budget controller
+    	var percentage = budgetCtrl.getPercentage();
+    	console.log(percentage);
+    	// 3.update the UI with new percentage
+    };
 	
 	var ctrlAddItem = function(){
 		var input,newItem;
@@ -273,6 +309,9 @@ var controller = (function(budgetCtrl,UICtrl){
 					// 5. calculate the update budget
                     updateBudget();
 					// console.log('hello');
+
+					// 6. Calculate and update percentage
+					updatePercentages();
 	                   }
 
 
@@ -287,12 +326,16 @@ var controller = (function(budgetCtrl,UICtrl){
                 type = splidID[0];
                 ID = parseInt(splidID[1]);
 
-                // delete the item from datastructure;
+                // 1.delete the item from datastructure
                 budgetCtrl.deleteItem(type,ID);
-                // delete the item from UI;
+                // 2.delete the item from UI;
                 UICtrl.deleteListItem(itemID);
-                // Update and Show the New Budget;
+                //  3.Update and Show the New Budget;
                 updateBudget();
+                // 4.updatePercentages
+                updatePercentages();
+
+
 
             }
 
